@@ -13,7 +13,7 @@ def my_hook(d):
         logger.info('Done downloading, now converting ...')
 
 def run_download(args):
-    return download(args.url, args.force)
+    return download(args.url, args.force_download)
 
 def download(url, force=False, username="local"):
 

@@ -82,5 +82,6 @@ def start_bot(args):
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, dl))
     job_queue.run_repeating(cleaner, interval=60, first=1)
 
+    logger.info("starting tg bot")
     updater.start_polling()
     updater.idle()

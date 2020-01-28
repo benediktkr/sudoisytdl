@@ -2,7 +2,7 @@
 
 set -e
 
-docker build -t benediktkr/sudoisytdl:latest .
+docker build --build-arg UID=1000 -t benediktkr/sudoisytdl:latest .
 
 env_file="./dev.env"
 source ${env_file}

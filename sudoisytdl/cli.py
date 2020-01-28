@@ -5,6 +5,7 @@ import sys
 
 from loguru import logger
 
+from sudoisytdl import config
 from sudoisytdl import yt
 from sudoisytdl import tg
 
@@ -21,20 +22,26 @@ def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--debug", action="store_true")
-    subparser = parser.add_subparsers()
+    subparsers = parser.add_subparsers(dest='cmd')
+    subparsers.required = True
 
-    parser_dl = subparser.add_parser('dl')
-    parser_dl.add_argument('url')
-    parser_dl.add_argument("--force", action="store_true")
+    parser_dl = subparsers.add_parser('dl', help="download with youtube-dl")
+    parser_dl.add_argument('url', help="youtube url")
+    parser_dl.add_argument("--force-download", action="store_true",
+                           help="download and overwrite file if exists")
     parser_dl.set_defaults(func=dl)
 
-    parser_tg = subparser.add_parser('tg')
+    parser_tg = subparsers.add_parser('tg', help="start telegram bot")
     parser_tg.set_defaults(func=run_tg)
 
     args = parser.parse_args()
 
-    if not args.debug:
+    if not args.debug or config.DEBUG:
         logger.remove()
-        logger.add(sys.stderr, level="SUCCESS")
+        logger.add(sys.stderr, level=config.DEFAULT_LOG_LEVEL)
+    else:
+        logger.warning("debug mode enabled")
+
+    logger.add(config.LOG_FILE, level=config.DEFAULT_LOG_LEVEL)
 
     args.func(args)
