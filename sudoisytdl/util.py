@@ -38,7 +38,7 @@ def remove_expired_from_webdir(max_mins=90):
     for item in files:
         mtime = datetime.fromtimestamp(stat(item).st_mtime)
         age = now - mtime
-        minutes = age.seconds // 60
+        minutes = age.total_seconds() // 60
         if minutes > max_mins:
             rmtree(item)
             logger.info(f"expired {item}")
