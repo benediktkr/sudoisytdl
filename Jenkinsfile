@@ -17,7 +17,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'dist/*.tar.z', fingerprint: true
+            archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
         }
     }
 }
