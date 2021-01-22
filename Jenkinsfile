@@ -4,8 +4,6 @@ pipeline {
         stage('build') {
             steps {
                 sh 'docker build -t benediktkr/sudoisytdl:latest .'
-            }
-            steps {
                 sh 'docker run --rm benediktkr/sudoisytdl:latest build'
             }
         }
