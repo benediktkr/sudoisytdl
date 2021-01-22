@@ -15,14 +15,15 @@ def my_hook(d):
 def run_download(args):
     return download(args.url, args.force)
 
-def download(url, force=False):
+def download(url, force=False, username="local"):
 
     archive_file = os.path.join(config.DL_DIR, "archive.txt")
+    os.makedirs(os.path.join(config.DL_DIR, username), exist_ok=True)
     ydl_opts = {
         'format': "best",
         'noplaylist': True,
         'download_archive': "/dev/null",
-        'outtmpl': os.path.join(config.DL_DIR, '%(title)s.%(ext)s'),
+        'outtmpl': os.path.join(config.DL_DIR, username, '%(title)s.%(ext)s'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',

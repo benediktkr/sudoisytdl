@@ -30,7 +30,7 @@ def get_user_name(user):
         name = getattr(user, param, False)
         if name:
             if param == "username":
-                return "@" + name
+                return name
             if param == "first_name":
                 # try to get the last name as well
                 return name + " " + gettr(user, "last_name", "")
@@ -45,7 +45,8 @@ def dl(update: Update, context: CallbackContext) -> None:
     notify_me(update, context)
 
     try:
-        dl = yt.download(update.message.text)
+        from_username = get_user_name(update.message.from_user)
+        dl = yt.download(update.message.text, username=from_username)
 
         links = dict()
         for k, fname in dl['files'].items():
