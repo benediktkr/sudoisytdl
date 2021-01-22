@@ -5,6 +5,7 @@ from loguru import logger
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.ext import CallbackContext
+from telegram.utils.helpers import escape_markdown
 
 from youtube_dl.utils import DownloadError
 
@@ -46,19 +47,23 @@ def dl(update: Update, context: CallbackContext) -> None:
     try:
         dl = yt.download(update.message.text)
 
-        urls = dict()
+        links = dict()
         for k, fname in dl['files'].items():
             url = util.copy_to_webdir(fname)
-            urls[k] = url
+            links[k] = f"[{k}]({url})"
 
 
-        msg = (f"{dl['name']} \n"
-               f"download: [audio]({urls['audio']}) | [video]({urls['video']})\n\n"
+        msg = (f"*{escape_markdown(dl['name'])}* \n\n"
+               f"download: {links['audio']} | {links['video']}\n\n"
                f"{notice}"
                )
+        logger.info(msg)
         update.message.reply_text(msg, parse_mode="markdown")
     except DownloadError as e:
-        update.message.reply_text("error downloading, maybe ask ben")
+        if "is not a valid URL" in str(e):
+            update.message.reply_text("that wasnt a youtube link")
+        else:
+            update.message.reply_text("error downloading, maybe ask ben")
 
 
 def cleaner(context: CallbackContext) -> None:

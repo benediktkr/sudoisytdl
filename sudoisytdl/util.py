@@ -4,6 +4,7 @@ import hashlib
 from shutil import copyfile, rmtree
 from os import path, makedirs, stat, listdir
 from datetime import datetime
+from urllib.parse import quote
 
 from loguru import logger
 
@@ -26,7 +27,7 @@ def copy_to_webdir(src):
     makedirs(dest_dir, exist_ok=True)
     copyfile(src, dest)
 
-    url = "/".join(["https:/", config.DOMAIN, digest, filename])
+    url = "/".join(["https:/", config.DOMAIN, digest, quote(filename)])
     logger.debug(f"copied '{filename}' to '{url}'")
     return url
 
