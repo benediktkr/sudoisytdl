@@ -5,7 +5,7 @@ description = ""
 authors = ["Benedikt Kristinsson <benedikt@lokun.is>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 loguru = "^0.5.3"
 python-telegram-bot = "^13.0"
 youtube-dl = "^2020.11.19"

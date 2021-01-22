@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,5 +14,5 @@ RUN poetry install
 
 ADD sudoisytdl/ /ytdl/sudoisytdl
 
-
-ENTRYPOINT ["poetry", "run", "ytdl"]
+ENTRYPOINT ["poetry"]
+CMD ["run"]
