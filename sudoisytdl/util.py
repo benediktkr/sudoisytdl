@@ -42,3 +42,5 @@ def remove_expired_from_webdir(max_mins=90):
         if minutes > max_mins:
             rmtree(item)
             logger.info(f"expired {item}")
+        # else:
+        #     logger.debug(f"{item}: {minutes}mins")
