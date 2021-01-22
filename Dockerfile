@@ -14,5 +14,5 @@ RUN poetry install
 
 ADD sudoisytdl/ /ytdl/sudoisytdl
 
-ENTRYPOINT ["poetry", "run", "ytdl"]
-CMD []
+ENTRYPOINT ["poetry"]
+CMD ["run", "ytdl", "tg"]
