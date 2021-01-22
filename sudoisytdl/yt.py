@@ -20,6 +20,7 @@ def download(url, force=False):
     archive_file = os.path.join(config.DL_DIR, "archive.txt")
     ydl_opts = {
         'format': "best",
+        'noplaylist': True,
         'download_archive': "/dev/null",
         'outtmpl': os.path.join(config.DL_DIR, '%(title)s.%(ext)s'),
         'postprocessors': [{
