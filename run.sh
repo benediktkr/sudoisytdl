@@ -2,7 +2,7 @@
 
 set -e
 
-./build.sh
+docker build -t benediktkr/sudoisytdl:latest .
 
 env_file="./dev.env"
 source ${env_file}
