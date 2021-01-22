@@ -60,7 +60,7 @@ def dl(update: Update, context: CallbackContext) -> None:
         logger.info(msg)
         update.message.reply_text(msg, parse_mode="markdown")
     except DownloadError as e:
-        if "is not a valid URL" in str(e):
+        if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
             update.message.reply_text("that wasnt a youtube link")
         else:
             update.message.reply_text("error downloading, maybe ask ben")
