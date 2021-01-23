@@ -54,12 +54,12 @@ def dl(update: Update, context: CallbackContext) -> None:
             links[k] = f"[{k}]({url})"
 
 
-        msg = (f"*{escape_markdown(dl['name'])}* \n\n"
-               f"download: {links['audio']} | {links['video']}\n\n"
-               f"{notice}"
-               )
-        logger.info(msg)
-        update.message.reply_text(msg, parse_mode="markdown")
+            msg = (f"*{escape_markdown(dl['name'])}* \n\n"
+                   f"download: [{k}]({url})\n\n"
+                   f"{notice}"
+                   )
+            logger.info(msg)
+            update.message.reply_text(msg, parse_mode="markdown")
     except DownloadError as e:
         if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
             update.message.reply_text("that wasnt a youtube link")
