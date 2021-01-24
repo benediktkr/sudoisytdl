@@ -11,8 +11,7 @@ pipeline {
             steps {
                 sh 'docker run --name sudoisytdl_package benediktkr/sudoisytdl:latest build'
                 sh 'mkdir -p dist'
-                su 'docker cp sudoisytdl_package:/ytdl/dist/* dist/'
-                su 'docker rm sudoisytdl_package'
+                sh 'docker cp sudoisytdl_package:/ytdl/dist/* dist/'
             }
         }
 
@@ -25,6 +24,7 @@ pipeline {
 
     post {
         always {
+            sh 'docker rm sudoisytdl_package'
             archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
             cleanWs()
         }
