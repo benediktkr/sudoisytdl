@@ -1,6 +1,7 @@
 FROM python:3.9
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV TZ Europe/Berlin
 
 RUN apt-get update && apt-get install -y ffmpeg
 RUN pip install poetry
