@@ -16,7 +16,7 @@ pipeline {
 
         stage('build package') {
             steps {
-                sh "docker run --name ${NAME}_jenkins benediktkr/${NAME}:latest build"
+                sh "docker run --name ${NAME}_jenkins benediktkr/${NAME}:latest build --ansi"
                 sh "docker cp ${NAME}_jenkins:/sudois/dist ."
             }
         }
