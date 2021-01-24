@@ -28,7 +28,7 @@ pipeline {
         success {
             archiveArtifacts artifacts: 'dist/*.tar.gz,dist/*.whl', fingerprint: true
         }
-        always {
+        cleanup {
             sh "docker rm ${NAME}_jenkins"
             cleanWs()
         }
