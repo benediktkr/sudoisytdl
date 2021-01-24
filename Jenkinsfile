@@ -18,6 +18,7 @@ pipeline {
         }
 
         stage('docker publish') {
+            when { not { tag "v*" } }
             steps {
                 sh "docker push benediktkr/${NAME}:latest"
             }
