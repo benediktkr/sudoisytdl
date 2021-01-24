@@ -13,7 +13,7 @@ pipeline {
         stage('build package') {
             steps {
                 sh "docker run --name ${NAME}_jenkins benediktkr/${NAME}:latest build"
-                sh "docker cp ${NAME}_jenkins:/ytdl/dist ."
+                sh "docker cp ${NAME}_jenkins:/sudois/dist ."
             }
         }
 
@@ -25,12 +25,12 @@ pipeline {
     }
 
     post {
+        success {
+            archiveArtifacts artifacts: 'dist/*.tar.gz,dist/*.whl', fingerprint: true
+        }
         always {
             sh "docker rm ${NAME}_jenkins"
             cleanWs()
-        }
-        success {
-            archiveArtifacts artifacts: 'dist/*.tar.gz,dist/*.whl', fingerprint: true
         }
     }
 }
