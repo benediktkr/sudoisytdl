@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    options {
+        timestamps()
+        ansiColor("xterm")
+    }
     environment {
         NAME="${JOB_NAME.split('/')[1]}"
     }
