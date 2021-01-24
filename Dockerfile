@@ -5,7 +5,10 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y ffmpeg
 RUN pip install poetry
 
-RUN mkdir /ytdl
+ARG UID=1216
+
+RUN useradd -m -u ${UID} sudoisytdl && mkdir /ytdl
+USER sudoisytdl
 WORKDIR ytdl
 
 ADD pyproject.toml /ytdl
