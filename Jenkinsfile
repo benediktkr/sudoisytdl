@@ -1,14 +1,22 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('build container') {
             steps {
                 sh 'docker build -t benediktkr/sudoisytdl:latest .'
-                sh 'docker run --rm benediktkr/sudoisytdl:latest build'
             }
         }
 
-        stage('publish') {
+        stage('build package') {
+            steps {
+                sh 'docker run --name sudoisytdl_package benediktkr/sudoisytdl:latest build'
+                sh 'mkdir dist'
+                su 'docker cp sudoisytdl_package:/ytdl/dist/* dist/'
+                su 'docker rm sudoisytdl_package'
+            }
+        }
+
+        stage('docker publish') {
             steps {
                 sh 'docker push benediktkr/sudoisytdl:latest'
             }
