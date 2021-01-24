@@ -27,7 +27,7 @@ pipeline {
     post {
         always {
             sh "docker rm ${NAME}_jenkins"
-            archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
+            archiveArtifacts artifacts: 'dist/*.tar.gz,dist/*.whl', fingerprint: true
             cleanWs()
         }
     }
