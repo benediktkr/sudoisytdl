@@ -68,8 +68,7 @@ def dl(update: Update, context: CallbackContext) -> None:
 
 
 def cleaner(context: CallbackContext) -> None:
-    util.remove_expired_from_webdir()
-
+    util.remove_expired_from_webdir(config.EXPIRE_AFTER_MINS)
 
 def start_bot(args):
     token = config.TG_TOKEN
@@ -78,6 +77,7 @@ def start_bot(args):
     dispatcher = updater.dispatcher
     job_queue = updater.job_queue
 
+    logger.info(f"web links are exired after {config.EXPIRE_AFTER_MINS}m")
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, dl))
     job_queue.run_repeating(cleaner, interval=60, first=1)
