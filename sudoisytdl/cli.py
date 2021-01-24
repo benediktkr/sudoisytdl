@@ -33,7 +33,7 @@ def cli():
     parser_version.set_defaults(func=print_version)
 
     parser_dl = subparsers.add_parser('dl', help="download with youtube-dl")
-    parser_dl.add_argument('url', help="youtube url")
+    parser_dl.add_argument('--url', help="youtube url")
     parser_dl.add_argument("--force-download", action="store_true",
                            help="download and overwrite file if exists")
     parser_dl.set_defaults(func=dl)
@@ -50,6 +50,8 @@ def cli():
         logger.warning("debug mode enabled")
 
     logger.add(config.LOG_FILE, level=config.DEFAULT_LOG_LEVEL)
+
+    logger.info(f'sudoisytdl v{__version__}')
 
     return args.func(args)
 
