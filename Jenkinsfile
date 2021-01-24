@@ -25,7 +25,7 @@ pipeline {
         stage('docker publish latest') {
             when { not { tag "v*" } }
             steps {
-                sh "docker push --quiet benediktkr/${NAME}:latest"
+                sh "docker push benediktkr/${NAME}:latest"
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
             when { tag "v*" }
             steps {
                 sh "docker tag benediktkr/${NAME}:latest benediktkr/${NAME}:${TAG_NAME}"
-                sh "docker push --quiet benediktkr/${NAME}:${TAG_NAME}"
+                sh "docker push benediktkr/${NAME}:${TAG_NAME}"
             }
         }
     }
