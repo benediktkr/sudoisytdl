@@ -30,7 +30,9 @@ pipeline {
         }
         cleanup {
             sh "docker rm ${NAME}_jenkins"
-            cleanWs()
+            cleanWs(deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true)
         }
     }
 }
