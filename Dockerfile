@@ -7,7 +7,9 @@ RUN pip install poetry
 
 ARG UID=1216
 
-RUN useradd -m -u ${UID} sudoisytdl && mkdir /ytdl
+RUN useradd -m -u ${UID} sudoisytdl && \
+        mkdir /ytdl && \
+        chown sudoisytdl:sudoisytdl /ytdl
 USER sudoisytdl
 WORKDIR ytdl
 
