@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9 as base
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ Europe/Berlin
@@ -14,6 +14,8 @@ RUN useradd -m -u ${UID} sudois \
         && poetry config virtualenvs.create false
 
 WORKDIR /sudois
+
+FROM base as builder
 
 COPY --chown=sudois:sudois pyproject.toml /sudois
 COPY --chown=sudois:sudois poetry.lock /sudois
