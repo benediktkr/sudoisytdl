@@ -7,17 +7,17 @@ RUN pip install poetry
 
 ARG UID=1216
 
-RUN useradd -m -u ${UID} sudoisytdl && \
-        mkdir /ytdl && \
-        chown sudoisytdl:sudoisytdl /ytdl
-USER sudoisytdl
-WORKDIR ytdl
+RUN useradd -m -u ${UID} sudois && \
+        mkdir /sudois && \
+        chown sudois:sudois /sudois
+USER sudois
+WORKDIR /sudois
 
-ADD pyproject.toml /ytdl
-ADD poetry.lock /ytdl
+ADD pyproject.toml /sudois
+ADD poetry.lock /sudois
 RUN poetry install
 
-ADD sudoisytdl/ /ytdl/sudoisytdl
+ADD sudoisytdl/ /sudois/sudoisytdl
 
 ENTRYPOINT ["poetry"]
 CMD ["run", "ytdl", "tg"]
