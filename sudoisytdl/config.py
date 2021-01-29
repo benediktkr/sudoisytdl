@@ -7,6 +7,8 @@ DOMAIN = os.environ["DOMAIN"]
 TG_TOKEN = os.environ["TG_TOKEN"]
 MY_TG = os.environ["MY_TG"]
 
+EXPIRE_AFTER_MINS = int(os.environ["EXPIRE_AFTER_MINS"])
+
 DEFAULT_LOG_LEVEL = "INFO"
 
 _debug_env = os.environ.get("DEBUG", "False")
