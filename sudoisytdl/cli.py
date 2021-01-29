@@ -6,6 +6,7 @@ import sys
 from loguru import logger
 
 from sudoisytdl import config
+from sudoisytdl import __version__
 from sudoisytdl import yt
 from sudoisytdl import tg
 
@@ -18,12 +19,18 @@ def dl(args):
 def run_tg(args):
     tg.start_bot(args)
 
-def main():
+def print_version(args):
+    print(__version__)
+
+def cli():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--debug", action="store_true")
     subparsers = parser.add_subparsers(dest='cmd')
     subparsers.required = True
+
+    parser_version = subparsers.add_parser('version', help="print version")
+    parser_version.set_defaults(func=print_version)
 
     parser_dl = subparsers.add_parser('dl', help="download with youtube-dl")
     parser_dl.add_argument('url', help="youtube url")
@@ -44,4 +51,8 @@ def main():
 
     logger.add(config.LOG_FILE, level=config.DEFAULT_LOG_LEVEL)
 
-    args.func(args)
+    return args.func(args)
+
+def main():
+    with logger.catch():
+        cli()

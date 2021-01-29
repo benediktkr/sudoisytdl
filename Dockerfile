@@ -13,11 +13,11 @@ RUN useradd -m -u ${UID} sudois && \
 USER sudois
 WORKDIR /sudois
 
-ADD pyproject.toml /sudois
-ADD poetry.lock /sudois
+COPY --chown=sudois:sudois pyproject.toml /sudois
+COPY --chown=sudois:sudois poetry.lock /sudois
 RUN poetry install
 
-ADD sudoisytdl/ /sudois/sudoisytdl
+COPY --chown=sudois:sudois sudoisytdl/ /sudois/sudoisytdl
 
 ENTRYPOINT ["poetry"]
 CMD ["run", "ytdl", "tg"]
