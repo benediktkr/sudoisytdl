@@ -22,6 +22,14 @@ pipeline {
                 sh "docker push benediktkr/${NAME}:latest"
             }
         }
+
+        stage('docker publish version') {
+            when { tag "v*" }
+            steps {
+                sh "docker tag benediktkr/${NAME}:latest benediktkr/${NAME}:${TAG_NAME}"
+                sh "docker push benediktkr/${NAME}:${TAG_NAME}"
+            }
+        }
     }
 
     post {
