@@ -12,9 +12,6 @@ def my_hook(d):
     if d['status'] == 'finished':
         logger.info('Done downloading, now converting ...')
 
-def run_download(args):
-    return download(args.url, args.force_download)
-
 def download(url, force=False, username="local"):
 
     archive_file = os.path.join(config.DL_DIR, "archive.txt")

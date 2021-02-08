@@ -10,16 +10,15 @@ from sudoisytdl import __version__
 from sudoisytdl import yt
 from sudoisytdl import tg
 
-
-def dl(args):
-    filenames = yt.run_download(args)
+def run_dl(args):
+    filenames = yt.download(args.url, args.force_download)
     for k, v in filenames.items():
         logger.success(f"{k}: '{v}")
 
 def run_tg(args):
-    tg.start_bot(args)
+    tg.start_bot()
 
-def print_version(args):
+def run_version(args):
     print(__version__)
 
 def cli():
@@ -30,13 +29,13 @@ def cli():
     subparsers.required = True
 
     parser_version = subparsers.add_parser('version', help="print version")
-    parser_version.set_defaults(func=print_version)
+    parser_version.set_defaults(func=run_version)
 
     parser_dl = subparsers.add_parser('dl', help="download with youtube-dl")
-    parser_dl.add_argument('--url', help="youtube url")
+    parser_dl.add_argument('--url', help="youtube url", required=True)
     parser_dl.add_argument("--force-download", action="store_true",
                            help="download and overwrite file if exists")
-    parser_dl.set_defaults(func=dl)
+    parser_dl.set_defaults(func=run_dl)
 
     parser_tg = subparsers.add_parser('tg', help="start telegram bot")
     parser_tg.set_defaults(func=run_tg)

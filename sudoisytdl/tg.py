@@ -70,7 +70,7 @@ def dl(update: Update, context: CallbackContext) -> None:
 def cleaner(context: CallbackContext) -> None:
     util.remove_expired_from_webdir(config.EXPIRE_AFTER_MINS)
 
-def start_bot(args):
+def start_bot():
     token = config.TG_TOKEN
 
     updater = Updater(token, use_context=True)
