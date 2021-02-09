@@ -28,12 +28,13 @@ else
 fi
 
 docker run \
-       -v $(pwd)/pyproject.toml:/sudois/pyproject.toml \
-       -v $(pwd)/poetry.lock:/sudois/poetry.lock \
-       -v $(pwd)/sudoisytdl:/sudois/sudoisytdl \
-       -v $(pwd)/dist:/sudois/dist \
        -v ${WEB_DIR_HOST}:${WEB_DIR} \
        -v ${DL_DIR_HOST}:${DL_DIR} \
        --env-file ${env_file} \
        --name sudoisytdl \
        --rm -it benediktkr/sudoisytdl:latest $CMD
+
+       # -v $(pwd)/pyproject.toml:/sudois/pyproject.toml \
+       # -v $(pwd)/poetry.lock:/sudois/poetry.lock \
+       # -v $(pwd)/sudoisytdl:/sudois/sudoisytdl \
+       # -v $(pwd)/dist:/sudois/dist \
