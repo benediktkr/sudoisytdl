@@ -1,6 +1,7 @@
 # sudoisytdl
 
 [![Build Status](https://jenkins.sudo.is/buildStatus/icon?job=ben%2Fsudoisytdl%2Fmaster&style=flat-square)](https://jenkins.sudo.is/job/ben/job/sudoisytdl/job/master/)
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/benediktkr/sudoisytdl?style=flat-square)
 
 A simple Telegram bot made with [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) and [youtube-dl](https://youtube-dl.org/) to download YouTube videos.
 
