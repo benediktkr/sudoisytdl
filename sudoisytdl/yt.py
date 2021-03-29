@@ -17,6 +17,7 @@ def download(url, force=False, username="local"):
     archive_file = os.path.join(config.DL_DIR, "archive.txt")
     os.makedirs(os.path.join(config.DL_DIR, username), exist_ok=True)
     ydl_opts = {
+        # try just "bestvideo+bestaudio"
         'format': "bestvideo[ext=mkv]+bestaudio[ext=mp3]/bestvideo+bestaudio",
         'noplaylist': True,
         'download_archive': "/dev/null",
