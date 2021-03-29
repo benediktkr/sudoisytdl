@@ -32,16 +32,18 @@ def download(url, force=False, username="local"):
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
-        filename_video = ydl.prepare_filename(info)
-        if os.path.exists(filename_video) and not force:
-            logger.warning(f"'{filename_video}' already exists, skipping")
+        filename_base = ydl.prepare_filename(info)
+        if os.path.exists(filename_base) and not force:
+            logger.warning(f"'{filename_base}' already exists, skipping")
         else:
             res = ydl.download([url])
-            logger.success(f"downloaded '{filename_video}'")
+            logger.info(f"downloaded '{filename_base}'")
 
 
-    noext = os.path.splitext(filename_video)[0]
+    noext = os.path.splitext(filename_base)[0]
     filename_audio = noext + ".mp3"
+    filename_video = noext = ".mkv"
+
     name = noext.split("/")[-1]
     return {'name': name,
             'files': {'audio': filename_audio,
