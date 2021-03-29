@@ -43,7 +43,7 @@ def download(url, force=False, username="local"):
 
     noext = os.path.splitext(filename_base)[0]
     filename_audio = noext + ".mp3"
-    filename_video = noext = ".mkv"
+    filename_video = noext + ".mkv"
 
     name = noext.split("/")[-1]
     return {'name': name,
