@@ -8,8 +8,8 @@ authors = ["Benedikt Kristinsson <benedikt@lokun.is>"]
 python = "^3.9"
 loguru = "^0.5.3"
 python-telegram-bot = "^13.0"
-youtube-dl = "^2020.11.19"
 ffmpeg-python = "^0.2.0"
+youtube_dl = "^2021.4.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
