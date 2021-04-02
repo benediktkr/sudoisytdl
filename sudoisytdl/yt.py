@@ -45,7 +45,7 @@ def download(url, dlmode, force=False, username="local"):
 
     noext = os.path.splitext(filename_base)[0]
     filename_mkv = noext + ".mkv"
-    if os.path.exist(filename_base):
+    if os.path.exists(filename_base):
         filename_video = filename_base
     elif os.path.exists(filename_mkv):
         filename_video = filename_mkv
