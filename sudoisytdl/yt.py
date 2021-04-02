@@ -7,6 +7,7 @@ from loguru import logger
 import youtube_dl
 
 from sudoisytdl import config
+from youtube_dl.utils import DownloadError
 
 def my_hook(d):
     if d['status'] == 'finished':
@@ -42,9 +43,15 @@ def download(url, dlmode, force=False, username="local"):
             res = ydl.download([url])
             logger.info(f"downloaded '{filename_base}'")
 
-
     noext = os.path.splitext(filename_base)[0]
-    filename_video = noext + ".mkv"
+    filename_mkv = noext + ".mkv"
+    if os.path.exist(filename_base):
+        filename_video = filename_base
+    elif os.path.exists(filename_mkv):
+        filename_video = filename_mkv
+    else:
+        raise DownloadError("video file missing")
+
     filename_audio = noext + ".mp3"
 
     if dlmode == "both":
