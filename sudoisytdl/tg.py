@@ -118,7 +118,7 @@ def handle_link(update: Update, context: CallbackContext) -> None:
         ) for mode in dlmodes.keys() ]]
     ikm = InlineKeyboardMarkup(keyboard)
 
-    update.message.reply_text("audio or video?", reply_markup=ikm)
+    update.message.reply_text("yo, audio or video?", reply_markup=ikm)
     raise DispatcherHandlerStop
 
 def cleaner(context: CallbackContext) -> None:
