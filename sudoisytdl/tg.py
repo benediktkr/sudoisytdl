@@ -2,7 +2,7 @@
 
 from loguru import logger
 
-from telegram import Update
+from telegram import Update, Bot
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.ext import CallbackContext, DispatcherHandlerStop
@@ -11,6 +11,7 @@ from telegram.utils.helpers import escape_markdown
 
 from youtube_dl.utils import DownloadError
 
+from sudoisytdl import __version__
 from sudoisytdl import yt
 from sudoisytdl import util
 from sudoisytdl import config
@@ -35,8 +36,7 @@ def get_url(msg):
 
 #     msg = f"{user} sent '{text}'"
 #     logger.info(msg)
-#     #me = f"@{config.MY_TG}"
-#     #context.bot.send_message(chat_id=me[1:], text=msg)
+#     #context.bot.send_message(chat_id=config.MY_TG, text=msg)
 
 
 def get_user_name(user):
@@ -140,6 +140,10 @@ def start_bot():
 
     job_queue.run_repeating(cleaner, interval=60, first=1)
 
-    logger.info("starting tg bot")
+    version = f"sudoisytdl {__version__}"
+    logger.info(version)
+    bot = Bot(token=token)
+    bot.send_message(chat_id=config.MY_TG, text=version)
+
     updater.start_polling()
     updater.idle()
