@@ -70,18 +70,16 @@ def callback(update: Update, _: CallbackContext) -> None:
         raise DispatcherHandlerStop
 
     try:
+        # stop the loading message in the client
+        query.answer()
+
         logger.info(f"{username}: {dlmode} of '{data[0]}'")
         dl = yt.download(data[0], dlmode, username=username)
 
         # copy files
-        urls = [
-            (k, util.copy_to_webdir(a)) for k, a in dl['files'].items()
-        ]
+        for k, a in  dl['files'].items():
+            dl_url = util.copy_to_webdir(a)
 
-        # stop the loading message in the client
-        query.answer()
-
-        for k, dl_url in urls:
             msg = (f"*{escape_markdown(dl['name'])}* \n\n"
                    f"download: [{k}]({dl_url})\n\n"
                    f"{notice}"
