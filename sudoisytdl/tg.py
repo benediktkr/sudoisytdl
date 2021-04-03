@@ -29,15 +29,6 @@ def get_url(msg):
     raise ValueError("please send/share a youtube link")
 
 
-# def notify_me(update: Update, context: CallbackContext) -> None:
-#     user = get_user_name(update.message.from_user)
-#     text = update.message.text
-
-#     msg = f"{user} sent '{text}'"
-#     logger.info(msg)
-#     #context.bot.send_message(chat_id=config.MY_TG, text=msg)
-
-
 def get_user_name(user):
     for param in ['username', 'first_name', 'id']:
         name = getattr(user, param, False)
@@ -50,6 +41,17 @@ def get_user_name(user):
             else:
                 return name
 
+def msg_me(text):
+    bot = Bot(token=config.TG_TOKEN)
+    bot.send_message(chat_id=config.MY_TG, text=text, parse_mode="markdown")
+
+def notify_me(user, msg, loglevel="WARNING"):
+    username = get_user_name(user)
+    text = f"{username}: '{msg}'"
+    if user.id != config.MY_TG:
+        msg_me(text)
+    logger.log(loglevel, text)
+
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('send me a youtube link')
 
@@ -61,6 +63,7 @@ def callback(update: Update, _: CallbackContext) -> None:
     def error(msg: str) -> None:
         logger.error(f"user: '{username}', error: '{msg}'")
         query.answer(text=msg)
+        notify_me(msg)
 
     try:
         dlmode = dlmodes[data[1]]
@@ -100,14 +103,15 @@ def callback(update: Update, _: CallbackContext) -> None:
 def handle_link(update: Update, context: CallbackContext) -> None:
     username = get_user_name(update.message.from_user)
 
+    notify_me(update.message.from_user, update.message.text)
+
     try:
         url = get_url(update.message.text)
     except ValueError as e:
-        logger.error(f"user: '{username}', msg: '{update.message.text}'")
-        update.message.reply_text(e)
+        update.message.reply_text(str(e))
+        notify_me(update.message.from_user, update.message.text, "ERROR")
         raise DispatcherHandlerStop
 
-    logger.info(f"user: '{username}', url: '{url}'")
 
     keyboard = [[
         InlineKeyboardButton(
@@ -122,9 +126,7 @@ def cleaner(context: CallbackContext) -> None:
     util.remove_expired_from_webdir(config.EXPIRE_AFTER_MINS)
 
 def start_bot():
-    token = config.TG_TOKEN
-
-    updater = Updater(token, use_context=True)
+    updater = Updater(config.TG_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
     job_queue = updater.job_queue
 
@@ -139,8 +141,7 @@ def start_bot():
 
     version = f"sudoisytdl {__version__}"
     logger.info(version)
-    bot = Bot(token=token)
-    bot.send_message(chat_id=config.MY_TG, text=version)
+    msg_me(text=version)
 
     updater.start_polling()
     updater.idle()

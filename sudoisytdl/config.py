@@ -5,7 +5,7 @@ WEB_DIR = os.environ.get("WEB_DIR", "/web")
 DOMAIN = os.environ["DOMAIN"]
 
 TG_TOKEN = os.environ["TG_TOKEN"]
-MY_TG = os.environ["MY_TG"]
+MY_TG = int(os.environ["MY_TG"])
 
 EXPIRE_AFTER_MINS = int(os.environ["EXPIRE_AFTER_MINS"])
 
