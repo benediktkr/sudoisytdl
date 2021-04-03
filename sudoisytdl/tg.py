@@ -86,7 +86,7 @@ def callback(update: Update, _: CallbackContext) -> None:
                    f"{notice}"
                    )
             logger.info(msg)
-            query.message.reply_text(msg, parse_mode="markdown")
+            query.message.edit_message_text(msg, parse_mode="markdown")
 
     except DownloadError as e:
         if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
