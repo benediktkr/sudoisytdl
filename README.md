@@ -1,6 +1,6 @@
 # sudoisytdl
 
-[![Build Status](https://jenkins.sudo.is/buildStatus/icon?job=ben%2Fsudoisytdl%2Fmaster&style=flat-square)](https://jenkins.sudo.is/job/ben/job/sudoisytdl/job/master/)
+![Build Status](https://jenkins.sudo.is/buildStatus/icon?job=ben%2Fsudoisytdl%2Fmaster&style=flat-square)](https://jenkins.sudo.is/job/ben/job/sudoisytdl/job/master/)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/benediktkr/sudoisytdl?sort=semver&style=flat-square)
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benediktkr/sudoisytdl?sort=date&style=flat-square)
 
