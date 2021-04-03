@@ -72,6 +72,7 @@ def callback(update: Update, _: CallbackContext) -> None:
     try:
         # stop the loading message in the client
         query.answer()
+        query.edit_message_text(text=f"downloading {dlmode}..")
 
         logger.info(f"{username}: {dlmode} of '{data[0]}'")
         dl = yt.download(data[0], dlmode, username=username)
