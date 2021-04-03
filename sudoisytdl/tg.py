@@ -16,7 +16,6 @@ from sudoisytdl import yt
 from sudoisytdl import util
 from sudoisytdl import config
 
-notice = "Links expire in 1 hour"
 dlmodes = {
     "audio": "audio",
     "video": "video",
@@ -82,11 +81,10 @@ def callback(update: Update, _: CallbackContext) -> None:
             dl_url = util.copy_to_webdir(a)
 
             msg = (f"*{escape_markdown(dl['name'])}* \n\n"
-                   f"download: [{k}]({dl_url})\n\n"
-                   f"{notice}"
+                   f"download: [{k}]({dl_url}) (valid 1h)"
                    )
             logger.info(msg)
-            query.message.edit_message_text(msg, parse_mode="markdown")
+            query.edit_message_text(msg, parse_mode="markdown")
 
     except DownloadError as e:
         if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
