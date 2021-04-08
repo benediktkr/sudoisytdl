@@ -80,14 +80,17 @@ def callback(update: Update, _: CallbackContext) -> None:
         dl = yt.download(data[0], dlmode, username=username)
 
         # copy files
+        dl_urls = dict()
         for k, a in  dl['files'].items():
             dl_url = util.copy_to_webdir(a)
+            dl_urls[k] = dl_url
 
-            msg = (f"*{escape_markdown(dl['name'])}* \n\n"
-                   f"download: [{k}]({dl_url}) (valid 1h)"
-                   )
-            logger.info(msg)
-            query.edit_message_text(msg, parse_mode="markdown")
+        md_links = [f"[{k}]({dl_urls[k]})" for k in sorted(dl_urls)]
+        msg = (f"*{escape_markdown(dl['name'])}* \n\n"
+               f"download: {' | '.join(md_links)} (valid 1h)"
+               )
+        logger.info(msg)
+        query.edit_message_text(msg, parse_mode="markdown")
 
     except DownloadError as e:
         if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
