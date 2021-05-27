@@ -90,7 +90,8 @@ def callback(update: Update, _: CallbackContext) -> None:
                f"download: {' | '.join(md_links)} (valid 1h)"
                )
         logger.info(msg)
-        query.edit_message_text(msg, parse_mode="markdown")
+
+        update.message.reply_text(msg, parse_mode="markdown")
 
     except DownloadError as e:
         if "is not a valid URL" in str(e) or "Unsupported URL" in str(e):
