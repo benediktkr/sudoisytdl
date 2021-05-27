@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sudoisytdl"
-version = "0.2.14"
+version = "0.2.15"
 description = ""
 authors = ["Benedikt Kristinsson <benedikt@lokun.is>"]
 
