@@ -33,7 +33,7 @@ def copy_to_webdir(src):
 
 def remove_expired_from_webdir(max_mins):
     ls = listdir(config.WEB_DIR)
-    files = [path.join(config.WEB_DIR, a) for a in ls if a != "robots.txt"]
+    files = [path.join(config.WEB_DIR, a) for a in ls if a != "robots.txt" and not a.startswith(".")]
     now = datetime.now()
 
     for item in files:
